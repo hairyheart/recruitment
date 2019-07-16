@@ -1,8 +1,22 @@
 package it.recruitment.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tipo_risorse")
 public class TipoRisorsa {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idtiporisorse")
 	private int idRisorsa;
+	
+	@Column(name="descrizione")
 	private String descrizione;
 	
 	public TipoRisorsa(int idRisorsa, String descrizione) {

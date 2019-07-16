@@ -3,15 +3,51 @@ package it.recruitment.entity;
 import java.sql.Date;
 import java.time.LocalTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="colloquio")
 public class Colloquio {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idcolloquio")
 	private int idcolloquio;
+	
+	
+	@Column(name="data")
 	private Date dataColloquio;
+	
+	
+	@Column(name="ora")
 	private LocalTime oraColloquio;
+	
+	
+	@Column(name="stanza")
 	private int stanza;
+	
+	
+	@Column(name="esito_globale")
 	private String esitoGlobale;
+	
+	
+	@Column(name="note")
 	private String note;
+	
+	@ManyToOne
+	@JoinColumn(name="idesigenza")	
 	private Esigenza esigenza;
+	
+	@ManyToOne
+	@JoinColumn(name="idcandidato")	
 	private Candidato candidato;
 	
 	

@@ -1,19 +1,59 @@
 package it.recruitment.entity;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="esigenza")
 public class Esigenza {
 	
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idesigenza")
 	private int idEsigenza;
+	
+	@Column(name="num_risorse")
 	private int numRisorse;
+	
+	@Column(name="data_inizio")
 	private Date dataInizio;
+	
+	@Column(name="data_fine")
 	private Date dataFine;
+	
+	@Column(name="tipologia")
 	private String tipologia;
+	
+	@ManyToOne
+	@JoinColumn(name="idtiporisorse")	
 	private TipoRisorsa tipoRisorsa;
+	
+	@ManyToOne
+	@JoinColumn(name="idbu")	
 	private BusinessUnit businessUnit;
+	
+	@ManyToOne
+	@JoinColumn(name="iddipendente")
 	private Dipendente dipendente;
 	
-	
+	@ManyToMany
+	@JoinTable(name="relazione_skill_esigenza", joinColumns = {@JoinColumn(name="idesigenze")}, 
+	inverseJoinColumns = {@JoinColumn(name="idskill")})
+	private Set<Skill> skills=new  HashSet<>();
 	
 	public Esigenza(int idEsigenza, int numRisorse, Date dataInizio, Date dataFine, String tipologia, 
 			TipoRisorsa tipoRisorsa, BusinessUnit businessUnit, Dipendente dipendente) {

@@ -1,9 +1,33 @@
 package it.recruitment.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="skill")
 public class Skill {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idskill")
 	private int idSkill;
+	
+	@Column(name="descrizione")
 	private String descrizione;
+	
+	
+	@ManyToMany(mappedBy = "skills")
+	private Set<Esigenza> esigenze=new  HashSet<>();
+	
 	
 	public Skill(int idSkill, String descrizione) {
 		super();

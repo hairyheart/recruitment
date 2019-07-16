@@ -1,11 +1,31 @@
 package it.recruitment.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="dipendente")
 public class Dipendente {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="iddipendente")
 	private int idDipendente;
+	
+	@Column(name="nome")
 	private String nome;
+	
+	@Column(name="cognome")
 	private String cognome;
+	
+	@Column(name="email")
 	private String email;
+	
+	@Column(name="num_telefono")
 	private int numTelefono;
 	
 	public Dipendente(int idDipendente, String nome, String cognome, String email, int numTelefono) {

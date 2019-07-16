@@ -2,12 +2,37 @@ package it.recruitment.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="valutazione")
 public class Valutazione {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idvalutazione")
 	private int idValutazione;
+	
+	@Column(name="esito")
 	private String esito;
+	
+	@Column(name="txt_valutazione")
     private String valutazione;
+	
+	@ManyToOne
+	@JoinColumn(name="idcolloquio")
     private Colloquio colloquio;
+	
+	@ManyToOne
+	@JoinColumn(name="iddipendente")
     private Dipendente dipendente;
     
     
