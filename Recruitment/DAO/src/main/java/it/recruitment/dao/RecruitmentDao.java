@@ -1,5 +1,9 @@
 package it.recruitment.dao;
 
-public class RecruitmentDao {
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public class RecruitmentDao implements RecruitmentDaoInterface {
 
 }

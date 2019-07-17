@@ -1,5 +1,8 @@
 package it.recruitment.service;
 
-public class RecruitmentService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class RecruitmentService implements RecruitmentServiceInterface{
 
 }
