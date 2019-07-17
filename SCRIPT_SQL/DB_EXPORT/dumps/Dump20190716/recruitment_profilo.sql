@@ -16,33 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `valutazione`
+-- Table structure for table `profilo`
 --
 
-DROP TABLE IF EXISTS `valutazione`;
+DROP TABLE IF EXISTS `profilo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `valutazione` (
-  `idvalutazione` int(11) NOT NULL AUTO_INCREMENT,
-  `esito` varchar(50) NOT NULL,
-  `txt_valutazione` varchar(100) NOT NULL,
-  `idcolloquio` int(11) NOT NULL,
-  `iddipendente` int(11) NOT NULL,
-  PRIMARY KEY (`idvalutazione`),
-  KEY `fk_colloquio_idx` (`idcolloquio`),
-  KEY `fk_dipendente_valutazione_idx` (`iddipendente`),
-  CONSTRAINT `fk_colloquio` FOREIGN KEY (`idcolloquio`) REFERENCES `colloquio` (`idcolloquio`),
-  CONSTRAINT `fk_dipendente_valutazione` FOREIGN KEY (`iddipendente`) REFERENCES `dipendente` (`iddipendente`)
+CREATE TABLE `profilo` (
+  `idprofilo` int(11) NOT NULL AUTO_INCREMENT,
+  `privilegio` enum('admin','data_manager','user') NOT NULL,
+  PRIMARY KEY (`idprofilo`),
+  UNIQUE KEY `privilegio_UNIQUE` (`privilegio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `valutazione`
+-- Dumping data for table `profilo`
 --
 
-LOCK TABLES `valutazione` WRITE;
-/*!40000 ALTER TABLE `valutazione` DISABLE KEYS */;
-/*!40000 ALTER TABLE `valutazione` ENABLE KEYS */;
+LOCK TABLES `profilo` WRITE;
+/*!40000 ALTER TABLE `profilo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `profilo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-17 10:34:57
+-- Dump completed on 2019-07-17 10:34:58

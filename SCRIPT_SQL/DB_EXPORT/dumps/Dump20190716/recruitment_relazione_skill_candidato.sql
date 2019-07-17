@@ -16,33 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `valutazione`
+-- Table structure for table `relazione_skill_candidato`
 --
 
-DROP TABLE IF EXISTS `valutazione`;
+DROP TABLE IF EXISTS `relazione_skill_candidato`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `valutazione` (
-  `idvalutazione` int(11) NOT NULL AUTO_INCREMENT,
-  `esito` varchar(50) NOT NULL,
-  `txt_valutazione` varchar(100) NOT NULL,
-  `idcolloquio` int(11) NOT NULL,
-  `iddipendente` int(11) NOT NULL,
-  PRIMARY KEY (`idvalutazione`),
-  KEY `fk_colloquio_idx` (`idcolloquio`),
-  KEY `fk_dipendente_valutazione_idx` (`iddipendente`),
-  CONSTRAINT `fk_colloquio` FOREIGN KEY (`idcolloquio`) REFERENCES `colloquio` (`idcolloquio`),
-  CONSTRAINT `fk_dipendente_valutazione` FOREIGN KEY (`iddipendente`) REFERENCES `dipendente` (`iddipendente`)
+CREATE TABLE `relazione_skill_candidato` (
+  `idskill` int(11) NOT NULL,
+  `idcandidato` int(11) NOT NULL,
+  PRIMARY KEY (`idskill`,`idcandidato`),
+  KEY `fk_candidato_skill_idx` (`idcandidato`),
+  CONSTRAINT `fk_candidato_skill` FOREIGN KEY (`idcandidato`) REFERENCES `candidato` (`idcandidato`),
+  CONSTRAINT `fk_skill_candidato` FOREIGN KEY (`idskill`) REFERENCES `skill` (`idskill`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `valutazione`
+-- Dumping data for table `relazione_skill_candidato`
 --
 
-LOCK TABLES `valutazione` WRITE;
-/*!40000 ALTER TABLE `valutazione` DISABLE KEYS */;
-/*!40000 ALTER TABLE `valutazione` ENABLE KEYS */;
+LOCK TABLES `relazione_skill_candidato` WRITE;
+/*!40000 ALTER TABLE `relazione_skill_candidato` DISABLE KEYS */;
+/*!40000 ALTER TABLE `relazione_skill_candidato` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
