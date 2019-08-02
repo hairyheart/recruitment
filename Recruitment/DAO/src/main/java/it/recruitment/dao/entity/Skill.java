@@ -1,10 +1,11 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,14 +26,21 @@ public class Skill {
 	private String descrizione;
 	
 	
-	@ManyToMany(mappedBy = "skills")
+	@ManyToMany(mappedBy = "skills",fetch = FetchType.EAGER)
 	private Set<Esigenza> esigenze=new  HashSet<>();
+	
+	@ManyToMany(mappedBy = "skills",fetch = FetchType.EAGER)
+	private Set<Candidato> candidato=new  HashSet<>();
 	
 	
 	public Skill(int idSkill, String descrizione) {
 		super();
 		this.idSkill = idSkill;
 		this.descrizione=descrizione;
+	}
+	
+	public Skill(int idSkill) {
+		this.idSkill = idSkill;
 	}
 
 	public Skill() {
@@ -59,6 +67,16 @@ public class Skill {
 	public String toString() {
 		return "Skill [idSkill=" + idSkill + ", descrizione=" + descrizione + "]";
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		Skill other = (Skill) obj;
+		if (idSkill != other.idSkill)
+			return false;
+		return true;
+	}
+ 
 	
 	
 }

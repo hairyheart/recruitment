@@ -1,10 +1,17 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +28,7 @@ public class Candidato {
 	private String nome;
 	
 	@Column(name="cognome")
-	private String Cognome;
+	private String cognome;
 	
 	@Column(name="email")
 	private String email;
@@ -29,14 +36,20 @@ public class Candidato {
 	@Column(name="num_telefono")
 	private int numTelefono;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="relazione_skill_candidato", joinColumns = {@JoinColumn(name="idcandidato"), }, 
+	inverseJoinColumns = {@JoinColumn(name="idskill")})
+	private Set<Skill> skills=new  HashSet<>();
 	
-	public Candidato(int idCandidato, String nome, String cognome, String email, int numTelefono) {
+	
+	public Candidato(int idCandidato, String nome, String cognome, String email, int numTelefono, Skill skill) {
 		super();
 		this.idCandidato = idCandidato;
 		this.nome = nome;
-		Cognome = cognome;
+		this.cognome = cognome;
 		this.email = email;
 		this.numTelefono = numTelefono;
+		this.skills.add(skill);
 	}
 
 
@@ -66,12 +79,12 @@ public class Candidato {
 
 
 	public String getCognome() {
-		return Cognome;
+		return cognome;
 	}
 
 
 	public void setCognome(String cognome) {
-		Cognome = cognome;
+		cognome = cognome;
 	}
 
 
@@ -95,12 +108,24 @@ public class Candidato {
 	}
 
 
+	public Set<Skill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(Set<Skill> skills) {
+		this.skills = skills;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Candidato [idCandidato=" + idCandidato + ", nome=" + nome + ", Cognome=" + Cognome + ", email=" + email
-				+ ", numTelefono=" + numTelefono + "]";
+		return "Candidato [idCandidato=" + idCandidato + ", nome=" + nome + ", cognome=" + cognome + ", email=" + email
+				+ ", numTelefono=" + numTelefono + ", skills=" + skills + "]";
 	}
-	
-	
+
+
+
+
 
 }

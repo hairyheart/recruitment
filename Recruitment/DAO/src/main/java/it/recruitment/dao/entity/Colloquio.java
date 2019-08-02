@@ -1,4 +1,4 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
 import java.sql.Date;
 import java.time.LocalTime;
@@ -27,12 +27,12 @@ public class Colloquio {
 	private Date dataColloquio;
 	
 	
-	@Column(name="ora")
+	@Column(name="ora") 
 	private LocalTime oraColloquio;
 	
 	
 	@Column(name="stanza")
-	private int stanza;
+	private String stanza;
 	
 	
 	@Column(name="esito_globale")
@@ -51,7 +51,7 @@ public class Colloquio {
 	private Candidato candidato;
 	
 	
-	public Colloquio(int idcolloquio, Date dataColloquio, LocalTime oraColloquio, int stanza, String esitoGlobale,
+	public Colloquio(int idcolloquio, Date dataColloquio, LocalTime oraColloquio, String stanza, String esitoGlobale,
 			String note, Esigenza esigenza,Candidato candidato ) {
 		super();
 		this.idcolloquio = idcolloquio;
@@ -110,12 +110,12 @@ public class Colloquio {
 	}
 
 
-	public int getStanza() {
+	public String getStanza() {
 		return stanza;
 	}
 
 
-	public void setStanza(int stanza) {
+	public void setStanza(String stanza) {
 		this.stanza = stanza;
 	}
 
@@ -158,8 +158,4 @@ public class Colloquio {
 				+ ", esigenza=" + esigenza + ", candidato=" + candidato + "]";
 	}
 
-
-	
-	
-	
 }

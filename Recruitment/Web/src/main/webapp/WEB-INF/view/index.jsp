@@ -23,9 +23,23 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Test - AlmavivA</h1>
-	<a href="adduserform.jsp">Add a new User</a>
-	<a href="viewusers.jsp">View all Users</a>
+	<a>User authenticated : ${username}  </a>
+	<br>
+	<c:forEach items="${profilo}" var="item">
+	Profiles : ${item}
+	<br>
+	</c:forEach>
+	
+	<div style="padding-top: 30px" />
 
+	<a href="gestioneDipendenti">Gestione Dipendenti</a>
+	
+	
+	<div style="padding-top: 10px" />
+
+	<a href="listaEsigenza">Gestione Esigenze</a>
+	<div style="padding-top: 10px" />
+
+	<a href="gestioneCandidati">Gestione Candidati</a>
 </body>
 </html>

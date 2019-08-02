@@ -1,10 +1,13 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,17 +31,40 @@ public class Dipendente {
 	@Column(name="num_telefono")
 	private int numTelefono;
 	
-	public Dipendente(int idDipendente, String nome, String cognome, String email, int numTelefono) {
+	@OneToOne(mappedBy = "dipendente",cascade = CascadeType.ALL, optional = false)
+	private Utente utente;
+	
+	public Dipendente(int idDipendente, String nome, String cognome, String email, int numTelefono, Utente utente) {
 		super();
 		this.idDipendente = idDipendente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 		this.numTelefono = numTelefono;
+		this.utente=utente;
 	}
+	
+	public Dipendente(String nome, String cognome, String email, int numTelefono) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+		this.email = email;
+		this.numTelefono = numTelefono;
+	}
+	
+	
 
 	public Dipendente() {
 		super();
+	}
+	
+	
+	public Utente getUtente() {
+		return utente;
+	}
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
 
 	public int getIdDipendente() {
@@ -81,12 +107,13 @@ public class Dipendente {
 		this.numTelefono = numTelefono;
 	}
 
+	/*
 	@Override
 	public String toString() {
 		return "Dipendente [idDipendente=" + idDipendente + ", nome=" + nome + ", cognome=" + cognome + ", email="
-				+ email + ", numTelefono=" + numTelefono + "]";
+				+ email + ", numTelefono=" + numTelefono + ", utente=" + utente + "]";
 	}
-	
+*/
 	
 	
 

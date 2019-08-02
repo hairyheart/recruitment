@@ -1,7 +1,8 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
 import java.sql.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,12 +16,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import it.recruitment.dao.BuDaoInterface;
+
+import javax.persistence.FetchType;
+
 
 @Entity
 @Table(name="esigenza")
 public class Esigenza {
-	
-	
+		
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idesigenza")
@@ -47,62 +53,88 @@ public class Esigenza {
 	private BusinessUnit businessUnit;
 	
 	@ManyToOne
-	@JoinColumn(name="iddipendente")
-	private Dipendente dipendente;
+	@JoinColumn(name="idutente")
+	private Utente utente;
 	
-	@ManyToMany
-	@JoinTable(name="relazione_skill_esigenza", joinColumns = {@JoinColumn(name="idesigenze")}, 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="relazione_skill_esigenza", joinColumns = {@JoinColumn(name="idesigenze"), }, 
 	inverseJoinColumns = {@JoinColumn(name="idskill")})
 	private Set<Skill> skills=new  HashSet<>();
 	
 	public Esigenza(int idEsigenza, int numRisorse, Date dataInizio, Date dataFine, String tipologia, 
-			TipoRisorsa tipoRisorsa, BusinessUnit businessUnit, Dipendente dipendente) {
+			TipoRisorsa tipoRisorsa, BusinessUnit businessUnit, Utente utente, Set<Skill> skills) {
 		super();
 		this.idEsigenza = idEsigenza;
+		this.numRisorse = numRisorse;
+		this.dataInizio = dataInizio; 
+		this.dataFine = dataFine;
+		this.tipologia = tipologia;
+		
+		this.businessUnit=businessUnit;
+		this.utente=utente;
+		this.tipoRisorsa=tipoRisorsa;
+		this.skills = skills;
+			
+	}
+	
+	public Esigenza(int numRisorse, Date dataInizio, Date dataFine, String tipologia, 
+			TipoRisorsa tipoRisorsa, BusinessUnit businessUnit, String nomeRecruiter, Set<Skill> skill) {
+		super();
 		this.numRisorse = numRisorse;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.tipologia = tipologia;
-		this.businessUnit=businessUnit;
-		this.dipendente=dipendente;
-		this.tipoRisorsa=tipoRisorsa;
 		
+		this.businessUnit= businessUnit;
+		this.utente=new Utente();
+		this.tipoRisorsa=tipoRisorsa;
+		this.skills=skill;
+			
 	}
-
+	
+	public Esigenza(int numRisorse, Date dataInizio, Date dataFine, String tipologia) {
+		super();
+		this.numRisorse = numRisorse;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.tipologia = tipologia;
+	}
 
 	public Esigenza() {
 		super();
 	}
 
-
 	
+	public Set<Skill> getSkills() {
+		return skills;
+	}
+	
+	public void setSkills(Set<Skill> skill) {
+		this.skills=skill;
+	}
+
 	public TipoRisorsa getTipoRisorsa() {
 		return tipoRisorsa;
 	}
-
 
 	public void setTipoRisorsa(TipoRisorsa tipoRisorsa) {
 		this.tipoRisorsa = tipoRisorsa;
 	}
 
-
 	public BusinessUnit getBusinessUnit() {
 		return businessUnit;
 	}
-
 
 	public void setBusinessUnit(BusinessUnit businessUnit) {
 		this.businessUnit = businessUnit;
 	}
 
-
-	public Dipendente getDipendente() {
-		return dipendente;
+	public Utente getUtente() {
+		return utente;
 	}
 
-
-	public void setDipendente(Dipendente dipendente) {
-		this.dipendente = dipendente;
+	public void setUtente(Utente utente) {
+		this.utente = utente;
 	}
 
 
@@ -160,13 +192,8 @@ public class Esigenza {
 	public String toString() {
 		return "Esigenza [idEsigenza=" + idEsigenza + ", numRisorse=" + numRisorse + ", dataInizio=" + dataInizio
 				+ ", dataFine=" + dataFine + ", tipologia=" + tipologia + ", tipoRisorsa=" + tipoRisorsa
-				+ ", businessUnit=" + businessUnit + ", dipendente=" + dipendente + "]";
+				+ ", businessUnit=" + businessUnit + ", utente=" + utente + "]";
 	}
 
-
-	
-	
-	
-	
 
 }

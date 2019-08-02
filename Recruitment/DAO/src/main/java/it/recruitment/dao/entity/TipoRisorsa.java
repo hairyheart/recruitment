@@ -1,4 +1,4 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +22,13 @@ public class TipoRisorsa {
 	public TipoRisorsa(int idRisorsa, String descrizione) {
 		super();
 		this.idRisorsa = idRisorsa;
+		this.descrizione = descrizione;
+	}
+	public TipoRisorsa(int idRisorsa) {
+		this.idRisorsa = idRisorsa;
+	}
+	
+	public TipoRisorsa(String descrizione) {
 		this.descrizione = descrizione;
 	}
 
@@ -49,7 +56,7 @@ public class TipoRisorsa {
 	public String toString() {
 		return "TipoRisorsa [idRisorsa=" + idRisorsa + ", descrizione=" + descrizione + "]";
 	}
-	
+
 	
 	
 }

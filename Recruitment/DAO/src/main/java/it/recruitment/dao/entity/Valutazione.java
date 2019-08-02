@@ -1,4 +1,4 @@
-package it.recruitment.entity;
+package it.recruitment.dao.entity;
 
 import java.sql.Date;
 
