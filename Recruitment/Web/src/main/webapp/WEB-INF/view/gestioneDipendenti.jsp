@@ -126,7 +126,7 @@
 		$("#modifica"+id).click(); // attivi l evento del bottone che lancerà l'action della form, cioè /updateDip
 		
 	}
-							</script>
+	</script>
 
 </body>
 </html>

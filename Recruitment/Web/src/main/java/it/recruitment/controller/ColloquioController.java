@@ -87,6 +87,20 @@ public class ColloquioController {
 		return "redirect:/listaEsigenza";
 	}
 	
+	@RequestMapping(value="/listaColloqui")
+	public String listaColloqui(@ModelAttribute("colloqui")Colloquio c, BindingResult bindingresult, Model model){
+		
+		
+		List<Colloquio> colloquio= colloquioService.getAllColloqui();
+		
+		for(Colloquio cc: colloquio) {
+		System.out.println(cc.getEsigenza().getUtente().getDipendente().getCognome());
+		}
+		model.addAttribute("colloquio", colloquio);
+		
+		return "listaColloqui";
+	}
+	
 }
 
 

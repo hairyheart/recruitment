@@ -41,5 +41,7 @@
 	<div style="padding-top: 10px" />
 
 	<a href="gestioneCandidati">Gestione Candidati</a>
+	<br>
+	<a href="listaColloqui">Lista colloqui</a>
 </body>
 </html>
