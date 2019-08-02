@@ -34,7 +34,8 @@ public class ColloquioController {
 	private CandidatoServiceInterface candidatoService;
 
 	@RequestMapping(value="/gestioneColloquio")
-	public String gestioneColloquio(@ModelAttribute ("colloquio") Colloquio colloquio, BindingResult bindingResult, @RequestParam("idEsigenza") int idEsigenza, Model model) {
+	public String gestioneColloquio(@ModelAttribute ("colloquio") Colloquio colloquio, BindingResult bindingResult,
+			@RequestParam("idEsigenza") int idEsigenza, Model model) {
 
 		Esigenza e = esigenzaService.findEsigenzaById(idEsigenza);		
 
@@ -58,17 +59,35 @@ public class ColloquioController {
 			for(Skill s: c.getSkills()) {
 				
 				listaStringCandidato.add(s.getDescrizione());
-			}
+		}
 			
 		 if(listaStringCandidato.containsAll(listaStringEsigenza)) {
 				cadidatiSelezionati.add(c);
-			}
+		}
 		 								
 	}
 		model.addAttribute("candidati", cadidatiSelezionati);
 		model.addAttribute("idEsigenza",idEsigenza);
 		return "creaColloquio";
-	}
-
-
+	
 }
+	
+	
+	@RequestMapping(value="/addColloquio")
+	public String creaColloquio(@ModelAttribute("colloquio") Colloquio colloquio, BindingResult bindingResult, 
+			@RequestParam("candidato")int idCandidato, @RequestParam("esigenza")int idEsigenza) {
+		
+		Esigenza e=esigenzaService.findEsigenzaById(idEsigenza);
+		Candidato c=candidatoService.findCandidato(idCandidato);
+		colloquio.setCandidato(c);
+		colloquio.setEsigenza(e);
+		
+		colloquioService.addColloquio(colloquio);
+		
+		return "redirect:/listaEsigenza";
+	}
+	
+}
+
+
+

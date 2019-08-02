@@ -50,7 +50,8 @@
 		
        <div style="padding-top: 20px" />
         
-         <input type="submit" value="aggiungi esigenza"/>
+         <input type="hidden" value="${idEsigenza}" name="esigenza">
+         <input type="submit" value="aggiungi colloquio"/>
        
         </form:form> 
 
