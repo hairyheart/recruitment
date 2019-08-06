@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+	<sec:global-method-security pre-post-annotations="enabled" />
+
+	<sec:http pattern="/login" security="none" />
+
+	<sec:http use-expressions="true" auto-config="false" entry-point-ref="entry" >
+            
+            <sec:custom-filter position="FORM_LOGIN_FILTER" ref="myFilter" />
+
+            <sec:intercept-url pattern="/**" access="isAuthenticated()"/>
+                                    
+       <!--            
+            <sec:logout  logout-url="/public/security/session_expired" />
+         
+             <sec:csrf disabled="true"/>
+         
+                   <sec:form-login login-page='logForm.jsp'  />
+                
+                   default-target-url="logForm.jsp"
+                   
+                   authentication-failure-url="/logForm.jsp?error=true" />
+                          
+              <sec:logout logout-success-url="/login" />
+        -->
+        </sec:http>
+   
+
+	  <bean id="myFilter"  class="it.recruitment.security.MyAuthenticationFilter">
+          
+             <property name="authenticationManager"     ref="authManager"/>
+             <property name="authenticationFailureHandler"  ref="failureHandler"/>
+             <property name="authenticationSuccessHandler"  ref="successHandler"/> 
+     </bean>
+     
+        <sec:authentication-manager alias="authManager">
+        
+               <sec:authentication-provider ref="authenticationProvider"/>
+               
+        </sec:authentication-manager>
+
+       <bean id="entry" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        
+            <constructor-arg index="0" value="/login"/>
+                    
+       </bean>
+        
+         <bean id="authenticationProvider"  class="it.recruitment.security.MyAuthenticationProvider"/>
+         <bean id="successHandler"          class="it.recruitment.security.MyAuthenticationSuccessHandler"/>
+         <bean id="failureHandler"          class="it.recruitment.security.MyAuthenticationFailureHandler"/> 
+
+</beans>
+
+
+<!--<?xml version="1.0" encoding="UTF-8"?>
+
+	<beans:beans xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:beans="http://www.springframework.org/schema/beans" 
+	xmlns="http://www.springframework.org/schema/security">
+
+	
+	<http auto-config="true">
+	    <intercept-url access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" pattern="/**"/>
+	</http>
+
+	
+	<authentication-manager>
+	   <authentication-provider>
+	      <user-service>
+	         <user authorities="ROLE_USER" password="{noop}1234" name="user"/>
+	         <user authorities="ROLE_ADMIN" password="{noop}1234" name="admin"/>
+	      </user-service>
+       </authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
+-->
