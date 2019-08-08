@@ -1,0 +1,14 @@
+@charset "ISO-8859-1";
+
+table, td{
+	border: 5em  black;
+	font-size: larger;
+}
+
+th{
+	font: bold;
+	font-size: larger;
+	height: 300em;
+
+}
+
